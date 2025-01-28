@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 
 app = express();
 
-const uri = "mongodb://127.0.0.1:27017/ecommerce";
+const uri = "mongodb+srv://gurdeepsainig2001:1uIX4u1TFnHq05fU@cluster0.owdx5.mongodb.net/ecommerce";
 mongoose.connect(uri);
 console.log("database connected");
 
