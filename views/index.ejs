@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body
+    class="bg-gradient-to-r from-blue-200 to-purple-300 flex justify-center items-center min-h-screen"
+  >
+    <div
+      class="bg-white shadow-2xl p-10 rounded-2xl w-full max-w-lg border border-gray-300"
+    >
+      <div class="flex justify-between mb-6">
+        <h1 class="text-4xl font-bold text-gray-900">Todo List</h1>
+        <div class="flex gap-4">
+          <form action="/login" method="get">
+            <button class="bg-blue-600 w-20 rounded-lg text-white h-10 font-medium hover:bg-blue-700 transition duration-300 shadow-md">Login</button>
+          </form>
+          <form action="/signup" method="get">
+            <button class="bg-green-600 w-20 rounded-lg text-white h-10 font-medium hover:bg-green-700 transition duration-300 shadow-md">Sign Up</button>
+          </form>
+        </div>
+      </div>
+      <form action="/add" method="post" class="flex gap-4">
+        <input
+          name="title"
+          type="text"
+          placeholder="Write a new todo..."
+          class="w-full border border-gray-400 rounded-lg p-3 text-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-400"
+        />
+        <button
+          type="submit"
+          class="bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-blue-600 transition duration-300"
+        >
+          Add
+        </button>
+      </form>
+
+      <h2 class="text-2xl font-bold mt-8 text-gray-800 border-b-2 pb-2 border-gray-400">
+        All Todos
+      </h2>
+      <ul class="mt-6 space-y-4">
+        <% todos.forEach(todo => { %>
+        <li
+          class="flex items-center justify-between bg-gray-100 p-5 rounded-lg shadow-lg border border-gray-400"
+        >
+          <span class="text-gray-900 font-medium text-lg"><%= todo.title %></span>
+          <div class="flex gap-4">
+            <form action="/complete/<%= todo._id %>" method="post">
+              <button
+                type="submit"
+                class="<%=todo.is_complete? 'bg-green-500 text-white' : 'bg-white text-gray-800 border border-gray-500' %> px-5 py-2 rounded-lg font-medium hover:shadow-md transition"
+              >
+                <%= todo.is_complete ? 'Completed' : 'Complete' %>
+              </button>
+            </form>
+            <form action="/delete/<%= todo._id %>" method="post">
+              <button
+                type="submit"
+                class="bg-red-500 text-white px-5 py-2 rounded-lg font-medium shadow-lg hover:bg-red-600 transition duration-300"
+              >
+                Delete
+              </button>
+            </form>
+          </div>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+  </body>
+</html>
