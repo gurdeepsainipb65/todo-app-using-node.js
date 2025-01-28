@@ -4,9 +4,16 @@ const bodyParser = require("body-parser");
 
 app = express();
 
-const uri = "mongodb+srv://gurdeepsainig2001:1uIX4u1TFnHq05fU@cluster0.owdx5.mongodb.net/ecommerce";
-mongoose.connect(uri);
-console.log("database connected");
+const uri =
+  "mongodb+srv://gurdeepsainig2001:1uIX4u1TFnHq05fU@cluster0.owdx5.mongodb.net/ecommerce";
+mongoose
+  .connect(uri)
+  .then(() => {
+    console.log("database connected");
+  })
+  .catch((e) => {
+    console.log(e);
+  });
 
 const TodoSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -35,11 +42,9 @@ app.post("/add", async (req, resp) => {
   Todo.create({ title });
   resp.redirect("/");
 });
-app.get("/login",async(req,resp)=>{
-  resp.render('login')
-}
-
-)
+app.get("/login", async (req, resp) => {
+  resp.render("login");
+});
 
 app.post("/delete/:id", async (req, resp) => {
   const { id } = req.params;
@@ -53,10 +58,10 @@ app.listen(5000, () => {
 
 app.post("/complete/:id", async (req, resp) => {
   const { id } = req.params;
-  const todo=await Todo.findById(id);
-  todo.is_complete = !todo.is_complete
-  await todo.save()
+  const todo = await Todo.findById(id);
+  todo.is_complete = !todo.is_complete;
+  await todo.save();
   resp.redirect("/");
 });
 
-module.exports = app
+module.exports = app;
