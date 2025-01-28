@@ -4,8 +4,6 @@ const bodyParser = require("body-parser");
 
 app = express();
 
-const mongoose = require("mongoose");
-
 const uri =
   "mongodb+srv://gurdeepsainig2001:1uIX4u1TFnHq05fU@cluster0.owdx5.mongodb.net/ecommerce?retryWrites=true&w=majority";
 
@@ -23,7 +21,7 @@ mongoose
     process.exit(1); // Exit the process with failure
   });
 
-  
+
 const TodoSchema = new mongoose.Schema({
   title: { type: String, required: true },
   is_complete: {
