@@ -58,3 +58,5 @@ app.post("/complete/:id", async (req, resp) => {
   await todo.save()
   resp.redirect("/");
 });
+
+module.exports = app
