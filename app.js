@@ -4,17 +4,26 @@ const bodyParser = require("body-parser");
 
 app = express();
 
+const mongoose = require("mongoose");
+
 const uri =
-  "mongodb+srv://gurdeepsainig2001:1uIX4u1TFnHq05fU@cluster0.owdx5.mongodb.net/ecommerce";
+  "mongodb+srv://gurdeepsainig2001:1uIX4u1TFnHq05fU@cluster0.owdx5.mongodb.net/ecommerce?retryWrites=true&w=majority";
+
 mongoose
-  .connect(uri)
-  .then(() => {
-    console.log("database connected");
+  .connect(uri, {
+    useNewUrlParser: true,      // Use new MongoDB connection string parser
+    useUnifiedTopology: true,   // Use new topology engine
+    serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds if the server is unreachable
   })
-  .catch((e) => {
-    console.log(e);
+  .then(() => {
+    console.log("Database connected successfully");
+  })
+  .catch((error) => {
+    console.error("Database connection failed:", error.message);
+    process.exit(1); // Exit the process with failure
   });
 
+  
 const TodoSchema = new mongoose.Schema({
   title: { type: String, required: true },
   is_complete: {
